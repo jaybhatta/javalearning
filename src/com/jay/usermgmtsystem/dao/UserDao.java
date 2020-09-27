@@ -19,3 +19,21 @@ List<User> getAllUserInfo();
 
 
 }
+
+
+
+
+
+
+
+//
+//<servlet>
+//<servlet-name>name</servlet-name>
+//<servlet-class>com.jay.usermgmtsystem.controller.UserController</servlet-class>
+//</servlet>
+//
+//<servlet-mapping>
+//<servlet-name>name</servlet-name>
+//<url-pattern>/UserController</url-pattern>
+//</servlet-mapping>
+

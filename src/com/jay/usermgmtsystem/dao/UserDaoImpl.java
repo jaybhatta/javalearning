@@ -31,7 +31,7 @@ public class UserDaoImpl implements UserDao{
 				ps.setString(4, user.getGender());
 				ps.setString(5, user.getHobbies());
 				ps.setString(6, user.getNationality());
-				ps.setDate(7, (Date) user.getDob());
+				ps.setDate(7, new Date(user.getDob().getTime()));
 			
 				
 			ps.executeUpdate();
@@ -57,7 +57,7 @@ public class UserDaoImpl implements UserDao{
 					ps.setString(4, user.getGender());
 					ps.setString(5, user.getHobbies());
 					ps.setString(6, user.getNationality());
-					ps.setDate(7, (Date) user.getDob());
+					ps.setDate(7,new Date(user.getDob().getTime()) );
 					ps.setInt(8, user.getId());
 				ps.executeUpdate();
 			
@@ -73,12 +73,14 @@ public class UserDaoImpl implements UserDao{
 	public User getUserById(int id) {
 		User user = new User();
 		try(Connection con = DbConnection.getConnection();
-				PreparedStatement ps = con.prepareStatement(SELECT_BY_ID_SQL);) 
+				PreparedStatement ps = con.prepareStatement(SELECT_BY_ID_SQL);)
+		
 			{
+				ps.setInt(1, id);
 			ResultSet rs=ps.executeQuery();
-			if(rs.next()) {
+			while(rs.next()) {
 			user.setId(rs.getInt("id"));
-			user.setUsername(rs.getString("username"));
+			user.setUsername(rs.getString("name"));
 			user.setEmail(rs.getString("email"));
 			user.setPassword(rs.getString("password"));
 			user.setGender(rs.getString("gender"));
@@ -121,8 +123,9 @@ public class UserDaoImpl implements UserDao{
     	  while(rs.next()) {
     		  User user = new User();
     		  user.setId(rs.getInt("id"));
-    		  user.setUsername(rs.getString("username"));
+    		  user.setUsername(rs.getString("name"));
     		  user.setEmail(rs.getString("email"));
+    		  user.setPassword(rs.getString("password"));
     		  user.setGender(rs.getString("gender"));
     		  user.setHobbies(rs.getString("hobbies"));
     		  user.setNationality(rs.getString("nationality"));

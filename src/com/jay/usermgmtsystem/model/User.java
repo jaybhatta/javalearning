@@ -11,6 +11,7 @@ public class User {
 	private String hobbies;
 	private String nationality;
 	private Date dob;
+
 	
 	
 	
